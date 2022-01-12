@@ -33,9 +33,8 @@ public class Main {
         return pourcentage < Math.random();
 
     }
-public static boolean nombreAuHasard (short nombre) {
-    return Math.random
-            (Math.random()*nombre);
+public static short nombreAuHasard (short nombre) {
+    return (short) Math.round(Math.random() * nombre);
 }
 
 }
