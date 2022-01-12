@@ -16,6 +16,9 @@ public class Main {
 
     public static void main(String[] args) {
        initPersonnage();
+       short ennemi = 5;
+       ennemi =attaquejoueur(ennemi);
+       System.out.println(" il reste "+ennemi+ " point de vie de l'ennemi ");
     }
 
 
@@ -25,7 +28,7 @@ public class Main {
         nomPersonnage = scanner.nextLine();
         System.out.println("Ok " + Util.color(nomPersonnage,Color.GREEN) + " C'est Parti!");
         ptsDeVie = MAX_PTS_VIE;
-        ptsBouclier =PTS_BOUCLIER;
+        ptsBouclier = bouclierActif ? PTS_BOUCLIER: 0;
         scanner.close();
     }
 
@@ -36,7 +39,15 @@ public class Main {
 public static short nombreAuHasard (short nombre) {
     return (short) Math.round(Math.random() * nombre);
 }
-
+public static short attaquejoueur (short ptsVieEnnemi) {
+    short forceAttaque = nombreAuHasard(MAX_ATTAQUE_JOUEUR);
+    ptsVieEnnemi -= forceAttaque ;
+    System.out.println (Util.color (nomPersonnage, Color.GREEN)
+            + " attaque l'" +Util.color("ennemie!",Color.YELLOW) +
+            " il lui fait perdre " +Util.color (forceAttaque , Color.BLUE ) +
+            " Points de dommages ");
+    return ptsVieEnnemi;
+    }
 }
 
 
