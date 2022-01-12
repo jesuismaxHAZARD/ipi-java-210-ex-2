@@ -28,4 +28,18 @@ public class Main {
         ptsBouclier =PTS_BOUCLIER;
         scanner.close();
     }
+
+    public static boolean hasard (double pourcentage) {
+        return pourcentage < Math.random();
+
+    }
+public static boolean nombreAuHasard (short nombre) {
+    return Math.random
+            (Math.random()*nombre);
 }
+
+}
+
+
+
+
