@@ -15,15 +15,15 @@ public class Main {
     public static boolean bouclierActif = true;
 
     public static void main(String[] args) {
-        //initPersonnage();
-        //afficherPersonnage();
-        //bouclierActif = true;
-        //short ennemi = 5;
-        //ennemi = attaqueJoueur(ennemi);
-        //System.out.println("il reste " + Util.color(ennemi, Color.RED) + " points de vie à l'ennemi !");
-        //attaqueEnnemi();
-        //initEnnemis();
-        //TODO exercice 11
+        initPersonnage();
+        initEnnemis();
+        afficherEnnemi();
+        afficherPersonnage();
+        bouclierActif = true;
+        short ennemi = 20;
+        ennemi = attaqueJoueur(ennemi);
+        System.out.println("il reste " + Util.color(ennemi, Color.RED) + " points de vie à l'ennemi !");
+        attaqueEnnemi();
     }
 
 
@@ -34,7 +34,6 @@ public class Main {
         System.out.println("OK " + Util.color(nomPersonnage, Color.GREEN) + " ! C'est parti !");
         ptsDeVie = MAX_PTS_VIE;
         ptsBouclier = bouclierActif ? PTS_BOUCLIER : 0;
-        scanner.close();
     }
 
     public static boolean hasard(double pourcentage) {
@@ -46,6 +45,20 @@ public class Main {
     public static short nombreAuHasard(short nombre) {
         return (short) Math.round(Math.random() * nombre);
     }
+
+    public static short[] initEnnemis() {
+        System.out.println("Combien souhaitez-vous combattre d'ennemis ?");
+        Scanner scanner = new Scanner(System.in);
+        int nbEnnemis = scanner.nextInt();
+        System.out.println("Génération des ennemis...");
+        short[] ennemis = new short[nbEnnemis];
+        for (int i = 0; i < nbEnnemis; i++) {
+            ennemis[i] = nombreAuHasard(MAX_VIE_ENNEMI);
+            System.out.println("Ennemi numéro " + (i + 1) + " : " + Util.color(ennemis[i], Color.PURPLE));
+        }
+        return ennemis;
+    }
+
 
     public static short attaqueJoueur(short ptsVieEnnemi) {
         //Déterminer la force de l'attaque du joueur
@@ -65,9 +78,7 @@ public class Main {
         if (bouclierActif) {
             System.out.print(" " + Util.color(ptsBouclier, Color.BLUE));
         }
-        System.out.print(") ");
-        System.out.println();
-
+        System.out.print(")");
     }
 
     public static void attaqueEnnemi() {
@@ -94,19 +105,6 @@ public class Main {
         }
     }
 
-    public static short[] initEnnemis() {
-        System.out.println("Combien souhaitez-vous combattre d'ennemis ?");
-        Scanner scanner = new Scanner(System.in);
-        int nbEnnemis = scanner.nextInt();
-        System.out.println("Génération des ennemis...");
-        short[] ennemis = new short[nbEnnemis];
-        for (int i = 0; i < nbEnnemis; i++) {
-            ennemis[i] = nombreAuHasard(MAX_VIE_ENNEMI);
-            System.out.println("Ennemi numéro " + (i + 1) + " : " + Util.color(ennemis[i], Color.PURPLE));
-        }
-        return ennemis;
-    }
-
     public static short attaque(short ennemi, boolean joueurAttaque) {
         //verifier si l 'un des deux combatants est mort=> si oui,on ne fait aucune attaque
         if (ptsDeVie <= 0 || ennemi <= 0) {
@@ -119,9 +117,16 @@ public class Main {
             //Sinon,on fait atttaquer l'ennemi
             attaqueEnnemi();
         }
-       return ennemi;
+        return ennemi;
     }
 
+    public static void afficherEnnemi() {
+        System.out.print(Util.color(nomPersonnage, Color.YELLOW) + " (" + Util.color(ptsDeVie, Color.RED));
+        if (bouclierActif) {
+            System.out.print(" " + Util.color(ptsBouclier, Color.BLUE));
+        }
+        System.out.print(")");
+    }
 }
 
 
