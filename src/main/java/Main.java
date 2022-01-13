@@ -107,14 +107,19 @@ public class Main {
     }
 
     public static short attaque(short ennemi, boolean joueurAttaque) {
-         //verifier si l 'un des deux combatants est mort=> si oui,on ne fait aucune attaque
-        if(ptsDeVie <= 0 || ennemi <=0){
+        //verifier si l 'un des deux combatants est mort=> si oui,on ne fait aucune attaque
+        if (ptsDeVie <= 0 || ennemi <= 0) {
+            return ennemi;
+        }
         //On va faire attaquer le joueur si c'est à lui d'attaquer
-
-        //Sinon,on fait atttaquer l'ennemi
-        return ennemi;
+        if (joueurAttaque) {
+            ennemi = attaqueJoueur(ennemi);
+        } else {
+            //Sinon,on fait atttaquer l'ennemi
+            attaqueEnnemi();
+        }
+       return ennemi;
     }
-
 
 }
 
