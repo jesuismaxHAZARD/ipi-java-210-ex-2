@@ -16,14 +16,43 @@ public class Main {
 
     public static void main(String[] args) {
         initPersonnage();
-        initEnnemis();
-        afficherEnnemi();
-        afficherPersonnage();
-        bouclierActif = true;
-        short ennemi = 20;
-        ennemi = attaqueJoueur(ennemi);
-        System.out.println("il reste " + Util.color(ennemi, Color.RED) + " points de vie à l'ennemi !");
-        attaqueEnnemi();
+
+        short[] TableauEnnemis = initEnnemis();
+
+        short nbEnnemis = 0;
+
+//attaque alternee
+        boolean boolAttaque = true;
+
+        //engage le combat pour chaque ennemi
+        for (int i = 0; i < TableauEnnemis.length; i++) {
+            //si mon personnage est mort, je sors du for
+            if(ptsDeVie <= 0){ break; }
+            // variable locale (de la fonction Main)
+            short ptsdevieennemi = TableauEnnemis[i];
+            // tant que l'ennemi ou toi n'est pas mort, on doit faire un do while
+            //savoir le point de vie de l'ennemi
+            System.out.println("Combat avec un ennemi possédant " + ptsdevieennemi + " points de vie !"); do {
+                // ecrire dans la console les points de vie restants
+                // nomPersonnage (ptsDeVie ptsBouclier) vs ennemi (pdtdevieennemi)
+                ptsdevieennemi = attaque(ptsdevieennemi, boolAttaque);
+                //boolAttaque = true = le joueur attaque
+                if (boolAttaque == true) { boolAttaque = false; }
+                //boolAttaque = false = l'ennemi attaque
+                else { System.out.println(Util.color(nomPersonnage, Color.GREEN) + "(" + ptsDeVie + " " + ptsBouclier + ")" + " vs ennemi (" + ptsdevieennemi + ")"); boolAttaque = true; } } while (ptsdevieennemi > 0 && ptsDeVie > 0); if (ptsdevieennemi <= 0) { nbEnnemis++;
+
+                System.out.println("L'ennemi est mort ! Au suivant !"); }
+            if (bouclierActif && ptsBouclier <= PTS_BOUCLIER){ ptsBouclier += 10; System.out.println("Régénération du bouclier : + 10"); }
+            if ( i > 0) { System.out.println("Saisisser S pour passer au combat suivant ou n'importe quoi d'autre pour fuir ...");
+                Scanner scanner = new Scanner(System.in);
+                String lettreSaisie = scanner.nextLine();
+                if (lettreSaisie != "S" && lettreSaisie != "s") { break; } } }
+        if (ptsDeVie > 0) {
+            if(nbEnnemis == TableauEnnemis.length) { System.out.println(nomPersonnage + " a tué tous les ennemis !");
+            }
+        }
+        else { System.out.print("Nombre d'ennemis vaincu :" + nbEnnemis);
+        }
     }
 
 
